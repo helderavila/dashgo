@@ -19,18 +19,17 @@ export default function UserList() {
         month: 'long',
         year: 'numeric'
       })
-    }))
+    }), {
+      staleTime: 1000 * 60 * 5
+    })
 
     return users
   })
-
-  console.log(data)
 
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true
   })
-
 
   return (
     <Box>
