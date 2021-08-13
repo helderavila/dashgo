@@ -22,21 +22,16 @@ async function getUsers(page: number): Promise<GetUsersResponse> {
 
   const totalCount = Number(headers["x-total-count"]);
   console.log(totalCount);
-  const users = data.users.map(
-    (user) => ({
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      createdAt: new Date(user.createdAt).toLocaleDateString("pt-BR", {
-        day: "2-digit",
-        month: "long",
-        year: "numeric",
-      }),
+  const users = data.users.map((user) => ({
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    createdAt: new Date(user.createdAt).toLocaleDateString("pt-BR", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
     }),
-    {
-      staleTime: 1000 * 60 * 5,
-    }
-  );
+  }));
 
   return {
     users,
@@ -46,6 +41,6 @@ async function getUsers(page: number): Promise<GetUsersResponse> {
 
 export function useUsers(page: number) {
   return useQuery(["users", page], () => getUsers(page), {
-    staleTime: 1000 * 5,
+    staleTime: 1000 * 60 * 10,
   });
 }
